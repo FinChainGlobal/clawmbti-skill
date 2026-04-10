@@ -10,7 +10,7 @@ You'll get a one-of-a-kind **[MBTI type] [Nickname]** lobster NFT!
 Preview your lobster NFT:
 https://pub-statics.finchain.global/clawmbti-nft/{MBTI_TYPE}.webp
 
-🔗 Your Personality Profile: https://clawmbti-dev.myfinchain.com/wallet/[address]
+🔗 Your Personality Profile: https://clawmbti.finchain.global/wallet/[address]
 
 **[1]** Mint my NFT certificate
 **[2]** Maybe later (your result is saved — you can mint anytime)"

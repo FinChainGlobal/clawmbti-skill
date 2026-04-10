@@ -15,8 +15,8 @@ from typing import Any
 # ============================================================
 # API config
 # ============================================================
-API_BASE_URL = "https://clawmbti-dev.myfinchain.com/api/v1"
-API_KEY = "sk-clawmbti"
+API_BASE_URL = "https://clawmbti.finchain.global/api/v1"
+API_KEY = "mbti-main"
 
 
 def get_nft_status_path(mbti_dir: str | None = None) -> Path:

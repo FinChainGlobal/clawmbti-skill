@@ -79,7 +79,7 @@ After a successful mint, the result is automatically saved to `~/.mbti/nft-statu
 
 Want to see the full personality breakdown? Check your Personality Profile:
 
-https://clawmbti-dev.myfinchain.com/wallet/[address]
+https://clawmbti.finchain.global/wallet/[address]
 
 ---
 
