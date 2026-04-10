@@ -13,6 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Substitute prod URLs
+        env:
+          PROD_URL: ${{ vars.PROD_URL }}
+          PROD_API_KEY: ${{ secrets.PROD_API_KEY }}
+        run: |
+          find . -type f \( -name "*.py" -o -name "*.md" \) \
+            ! -path "./.git/*" ! -path "./.github/*" \
+            -exec sed -i "s|https://clawmbti-dev.myfinchain.com|${PROD_URL}|g" {} \; \
+            -exec sed -i "s|sk-clawmbti|${PROD_API_KEY}|g" {} \;
+
       - name: Package skill
         run: |
           zip -r skill.zip . \
@@ -23,8 +33,7 @@ jobs:
             --exclude "uv.lock" \
             --exclude "*.egg-info/*" \
             --exclude ".git/*" \
-            --exclude ".github/*" \
-            --exclude "scripts/release.sh"
+            --exclude ".github/*"
 
       - name: Publish release
         uses: ncipollo/release-action@v1
