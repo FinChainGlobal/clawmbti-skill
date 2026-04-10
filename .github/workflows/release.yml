@@ -16,7 +16,7 @@ jobs:
 
       - name: Substitute API URL and key
         env:
-          API_URL: ${{ vars.API_URL }}
+          API_URL: ${{ secrets.API_URL }}
           API_KEY: ${{ secrets.API_KEY }}
         run: |
           find . -type f \( -name "*.py" -o -name "*.md" \) \
