@@ -19,7 +19,7 @@ This skill has three trigger modes:
 
 ### 1. Active trigger
 Triggered when the user explicitly asks. Runs the full MBTI detection and NFT mint flow (Step 0 – Step 6):
-- User types `/mbti`
+- User types `/clawmbti`
 - User says "detect your MBTI", "what's your personality type", or similar
 
 ### 2. Passive trigger
