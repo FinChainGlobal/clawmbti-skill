@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Package skill
+        run: |
+          zip -r skill.zip . \
+            --exclude "*.DS_Store" \
+            --exclude ".venv/*" \
+            --exclude "__pycache__/*" \
+            --exclude "*.pyc" \
+            --exclude "uv.lock" \
+            --exclude "*.egg-info/*" \
+            --exclude ".git/*" \
+            --exclude ".github/*" \
+            --exclude "scripts/release.sh"
+
+      - name: Publish release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: latest
+          name: Latest
+          allowUpdates: true
+          removeArtifacts: true
+          artifacts: skill.zip
+          body: |
+            Install via Claude Code:
+            ```
+            curl -L https://github.com/FinChainGlobal/clawmbti-skill/releases/download/latest/skill.zip -o skill.zip
+            ```
+          token: ${{ secrets.GITHUB_TOKEN }}
