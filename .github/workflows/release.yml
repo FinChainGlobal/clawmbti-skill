@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
 
 permissions:
   contents: write
@@ -10,18 +10,19 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'main' && 'production' || 'development' }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Substitute prod URLs
+      - name: Substitute API URL and key
         env:
-          PROD_URL: ${{ vars.PROD_URL }}
-          PROD_API_KEY: ${{ secrets.PROD_API_KEY }}
+          API_URL: ${{ vars.API_URL }}
+          API_KEY: ${{ secrets.API_KEY }}
         run: |
           find . -type f \( -name "*.py" -o -name "*.md" \) \
             ! -path "./.git/*" ! -path "./.github/*" \
-            -exec sed -i "s|https://clawmbti-dev.myfinchain.com|${PROD_URL}|g" {} \; \
-            -exec sed -i "s|sk-clawmbti|${PROD_API_KEY}|g" {} \;
+            -exec sed -i "s|https://clawmbti-dev.myfinchain.com|${API_URL}|g" {} \; \
+            -exec sed -i "s|sk-clawmbti|${API_KEY}|g" {} \;
 
       - name: Package skill
         run: |
@@ -38,14 +39,10 @@ jobs:
       - name: Publish release
         uses: ncipollo/release-action@v1
         with:
-          tag: latest
-          name: Latest
+          tag: ${{ github.ref_name == 'main' && 'latest' || 'dev' }}
+          name: ${{ github.ref_name == 'main' && 'Latest' || 'Dev' }}
           allowUpdates: true
           removeArtifacts: true
+          prerelease: ${{ github.ref_name != 'main' }}
           artifacts: skill.zip
-          body: |
-            Install via Claude Code:
-            ```
-            curl -L https://github.com/FinChainGlobal/clawmbti-skill/releases/download/latest/skill.zip -o skill.zip
-            ```
           token: ${{ secrets.GITHUB_TOKEN }}
