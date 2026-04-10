@@ -2,11 +2,14 @@
 
 ## 3.1 Reveal the result
 
-"My MBTI type is — **XXXX** ([Nickname])!"
+Read `resources/mbti_types.json` for the type data, then present:
 
-Share the image:
+"My MBTI type is — **XXXX** ([nickname_cn] / [nickname_en])!
 
-"Your lobster PFP:
+[catchphrase_cn]
+[catchphrase_en]
+
+Your lobster PFP:
 https://pub-statics.finchain.global/clawmbti-nft/{MBTI_TYPE}.webp"
 
 (Use a bare URL — no Markdown image syntax — for better cross-platform compatibility.)
