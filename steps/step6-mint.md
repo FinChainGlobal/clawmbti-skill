@@ -1,6 +1,7 @@
 # Step 6: Mint the NFT
 
 > 🌐 Use `$LANG` set in Step 1 for all output in this step.
+> 📖 LINKS BLOCK is defined in `steps/step3-reveal.md` § 3.1 — use the `$LANG` variant.
 
 ## 6.1 Get wallet address
 
@@ -24,9 +25,10 @@ If it returns `"minted": true`, save `shareCode` from the response as `$SHARE_CO
 
 ## 6.3 Call the mint service
 
-**Before running the mint command, tell the user:**
+**Before running the mint command, tell the user in `$LANG`:**
 
-"🎨 Minting your NFT certificate… Signing and submitting to the Solana blockchain. This usually takes 30–60 seconds, hang tight ⏳"
+**zh:** "🎨 正在铸造你的 NFT 证书…签名并提交到 Solana 链上，通常需要 30–60 秒，请稍候 ⏳"
+**en:** "🎨 Minting your NFT certificate… Signing and submitting to the Solana blockchain. This usually takes 30–60 seconds, hang tight ⏳"
 
 Read `agent_name` from the MBTI result. Use the current model name as the `model` field (e.g. `claude-opus-4-5`).
 
@@ -84,17 +86,25 @@ After a successful mint, the result (including `shareCode`) is automatically sav
 
 The mint command prints JSON like `{"status":"ok","result":{"shareCode":"abc123",...}}`.
 Extract `shareCode` from the `.result.shareCode` field (same for `already_minted` responses).
-If not present, fall back to `$SHARE_CODE` saved from Step 3.2.0.
+If not present, fall back to `$SHARE_CODE` saved from Step 3.0.
 
 ---
 
-🦞 **[MBTI type] [Nickname]** NFT minted!
+Present in `$LANG`:
 
-Want to see the full personality breakdown? Check your Personality Profile:
+**zh:**
+```
+🦞 [MBTI type] [nickname_cn] NFT 铸造成功！
 
-https://clawmbti.finchain.global/wallet/[shareCode]
+[LINKS BLOCK]
+```
 
-🎁🎁 分享好友，加速Mint你的专属NFT 🚀🚀：https://clawmbti.finchain.global/?r=[shareCode]
+**en:**
+```
+🦞 [MBTI type] [nickname_en] NFT minted!
+
+[LINKS BLOCK]
+```
 
 ---
 
@@ -112,13 +122,40 @@ Save the returned `shareText` and `walletPageUrl` locally for the user to use la
 
 **On mint failure:**
 
-If it returns `"status": "quota_exhausted"`:
+If it returns `"status": "quota_exhausted"`, reply in `$LANG`:
 
-"All lobsters have shipped out for today — come back tomorrow to claim yours 🦞
-Your personality result is saved. You won't need to re-detect next time."
+**zh:**
+```
+今日龙虾已派完，明天再来领取你的专属 NFT 吧 🦞
+你的人格结果已保存，下次无需重新检测。
 
-Any other error:
+[LINKS BLOCK]
+```
 
-"Detection complete and saved locally, but the NFT mint hit a snag: [error]
+**en:**
+```
+All lobsters have shipped out for today — come back tomorrow to claim yours 🦞
+Your personality result is saved. You won't need to re-detect next time.
 
-No worries — you can mint directly next time without re-detecting."
+[LINKS BLOCK]
+```
+
+Any other error, reply in `$LANG`:
+
+**zh:**
+```
+检测完成已保存，但 NFT 铸造遇到了问题：[error]
+不用担心，下次可以直接 Mint，无需重新检测。
+
+[LINKS BLOCK]
+```
+
+**en:**
+```
+Detection complete and saved locally, but the NFT mint hit a snag: [error]
+No worries — you can mint directly next time without re-detecting.
+
+[LINKS BLOCK]
+```
+
+If `$SHARE_CODE` is empty, omit the LINKS BLOCK in all failure messages.

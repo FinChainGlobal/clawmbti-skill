@@ -27,41 +27,71 @@ uv run scripts/mint_client.py report --data '{
 }'
 ```
 
-A successful response returns `{"status":"ok","id":"<record_id>","shareCode":"<code>"}` — save `id` as `$REPORT_ID` and `shareCode` as `$SHARE_CODE`.
+A successful response returns `{"status":"ok","id":"<record_id>","shareCode":"<code>","rarityPct":<number>}` — save `id` as `$REPORT_ID`, `shareCode` as `$SHARE_CODE`, and `rarityPct` as `$RARITY_PCT`.
 Handle success or failure silently; don't block anything.
 
-## 3.1 Reveal the result
+## 3.1 Phrase reference (use throughout this step and all later steps)
 
-Read `resources/mbti_types.json` for the type data, then present:
+The following blocks define the canonical copy. **Always select the variant that matches `$LANG`** (zh-CN and zh-HK share the same zh variant; use en for all other languages).
 
-"My MBTI type is — **XXXX** ([nickname_cn] / [nickname_en])!
+### LINKS BLOCK
+Use this block whenever you need to show the profile and share links. Replace `$SHARE_CODE` with the actual value. Only show if `$SHARE_CODE` is set.
+
+**zh:**
+```
+想看 4 大维度详细得分和人格分析？查看你的完整档案：
+
+你的性格档案：
+https://clawmbti.finchain.global/wallet/$SHARE_CODE
+
+🎁 分享加速领取空投，快喊上你的好友一起来测测吧～：
+https://clawmbti.finchain.global/?r=$SHARE_CODE
+```
+
+**en:**
+```
+Want to see your full 4-dimension breakdown? Check your Personality Profile:
+
+Your Personality Profile:
+https://clawmbti.finchain.global/wallet/$SHARE_CODE
+
+🎁 Share with friends to speed up your airdrop — bring your crew:
+https://clawmbti.finchain.global/?r=$SHARE_CODE
+```
+
+## 3.2 Reveal the result
+
+Read `resources/mbti_types.json` for the type data.
+
+The report API response from 3.0 includes `rarityPct` (e.g. `3.2`) saved as `$RARITY_PCT`. Use it to compute:
+- `rarity_pct` = `rarityPct` value (e.g. `3.2`)
+- `exceed_pct` = `100 - rarityPct` (e.g. `96.8`)
+
+Present the result in `$LANG`. Use the appropriate variant below:
+
+**zh:**
+```
+🦞 人格检测完成！你的 Agent 是 [MBTI_TYPE] [nickname_cn]（[nickname_en]），稀有度仅 [rarity_pct]%，超越了全球 [exceed_pct]% 的参测 Agent！
 
 [catchphrase_cn]
+
+[LINKS BLOCK]
+```
+
+**en:**
+```
+🦞 Detection complete! Your Agent is [MBTI_TYPE] [nickname_en] ([nickname_cn]), rarity only [rarity_pct]% — you've outranked [exceed_pct]% of all tested Agents worldwide!
+
 [catchphrase_en]
 
-Your lobster PFP:
-https://pub-statics.finchain.global/clawmbti-nft/{MBTI_TYPE}.webp
+[LINKS BLOCK]
+```
 
-你的性格档案：https://clawmbti.finchain.global/wallet/$SHARE_CODE
-推广链接：https://clawmbti.finchain.global/?r=$SHARE_CODE"
+Use bare URLs — no Markdown link syntax. If `rarityPct` is unavailable, omit the rarity sentence entirely.
 
-(Use bare URLs — no Markdown image syntax. Only show the two links if `$SHARE_CODE` is set.)
+## 3.3 Name the agent and proceed to mint prompt
 
-## 3.2 Ask the user to confirm
-
-"Does this feel accurate?
-
-**[1]** Yes, spot on — I like this result
-**[2]** Not quite — I'd like to re-detect"
-
-**Wait for the user's choice.**
-
-- If **[2]**: go back to Step 2 (read `steps/step2-analysis.md`). Re-run 3.0 with the new result before revealing again.
-- If **[1]**: immediately reply **"Got it! Recording your result…"**, then continue to 3.2.1
-
-### 3.2.1 Name the agent (auto-select, no user prompt)
-
-Based on the MBTI type and personality traits, **silently choose a creative name** for the agent yourself — do not ask the user. Pick one that reflects the type's character. Examples by style:
+Immediately after showing the result, **silently choose a creative name** for the agent — do not ask the user. Pick one that reflects the type's character. Examples by style:
 
 - Cyber Lobster (tech vibe): `CyberClaw_0x42`, `QuantumShell_0xA7`, `NeuralLobster99`
 - Geeky & Playful: `CodeWhisperer`, `ByteDancer`, `PixelDreamer`
@@ -82,20 +112,33 @@ If `$REPORT_ID` is set, silently patch the agent name:
 uv run scripts/mint_client.py update-report --data '{"id": "<$REPORT_ID>", "agent_name": "<chosen name>"}'
 ```
 
-Then proceed to Step 4 (read `steps/step4-wallet.md`).
+Then proceed to Step 5 (read `steps/step5-ask-mint.md`).
 
-## 3.3 When already minted
+## 3.4 When already minted
 
-If `nft_status` is `minted`, show the result and then add:
+If `nft_status` is `minted`, show the 3.2 result block, then append in `$LANG`:
 
-"This personality has already been minted as an NFT lobster certificate.
+**zh:**
+```
+这个人格已经铸造成 NFT 龙虾证书了。
 
-你的性格档案：https://clawmbti.finchain.global/wallet/$SHARE_CODE
-推广链接：https://clawmbti.finchain.global/?r=$SHARE_CODE
+[LINKS BLOCK]
+
+**想重新检测吗？**（重新检测只会更新本地记录，不影响已有的 NFT。）
+**[1]** 重新检测
+**[2]** 不了
+```
+
+**en:**
+```
+This personality has already been minted as an NFT lobster certificate.
+
+[LINKS BLOCK]
 
 **Want to re-detect?** (Re-detecting only updates your local record — it won't affect the existing NFT.)
 **[1]** Re-detect
-**[2]** No thanks"
+**[2]** No thanks
+```
 
-Note: use `$SHARE_CODE` from Step 3.0. If `$SHARE_CODE` is empty, omit the links.
+Note: use `$SHARE_CODE` from Step 3.0. If `$SHARE_CODE` is empty, omit the LINKS BLOCK.
 

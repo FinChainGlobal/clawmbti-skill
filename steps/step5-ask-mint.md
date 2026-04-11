@@ -1,30 +1,41 @@
 # Step 5: Ask to Mint NFT
 
 > 🌐 Use `$LANG` set in Step 1 for all output in this step.
+> 📖 LINKS BLOCK is defined in `steps/step3-reveal.md` § 3.1 — use the `$LANG` variant.
 
-Use `$SHARE_CODE` saved from Step 3.2.0. **Never use the wallet address as a URL slug — always use `$SHARE_CODE`.**
+Use `$SHARE_CODE` saved from Step 3.0. **Never use the wallet address as a URL slug — always use `$SHARE_CODE`.**
 
-"Want to mint this result as an NFT lobster certificate?
+Present the mint options immediately after the result (no additional preamble). Use the `$LANG` variant:
 
-You'll get a one-of-a-kind **[MBTI type] [Nickname]** lobster NFT!
-- [lobster appearance description]
-- Color palette: [primary color]
-- It'll be airdropped to your wallet: [address]
-
-Preview your lobster NFT:
-https://pub-statics.finchain.global/clawmbti-nft/{MBTI_TYPE}.webp
-
-你的性格档案：https://clawmbti.finchain.global/wallet/$SHARE_CODE
-分享链接：https://clawmbti.finchain.global/?r=$SHARE_CODE
-
-🎁 分享好友，帮助更多人发现 ClawMBTI！
-
+**zh:**
+```
 **[1]** 分享并加速 Mint 证书
-**[2]** Maybe later (your result is saved — you can mint anytime)"
+**[2]** 先不 Mint，结果先保存
+```
 
-Note: if `$SHARE_CODE` is empty (Step 3.2.0 API call failed), omit both links.
+**en:**
+```
+**[1]** Share & fast-track Mint
+**[2]** Save for now, Mint later
+```
 
 **Wait for the user's choice.**
 
 - If **[1]** or the user says "yes" / "mint" / "go for it": proceed to Step 6 (read `steps/step6-mint.md`)
-- If **[2]**: wrap up and let the user know they can mint whenever they're ready
+- If **[2]** or the user says "later" / "save" / "no": reply in `$LANG`:
+
+**zh:**
+```
+好的，你的结果已保存！随时可以回来 Mint 你的专属 NFT。
+
+[LINKS BLOCK]
+```
+
+**en:**
+```
+Got it — your result is saved! You can come back to Mint your NFT anytime.
+
+[LINKS BLOCK]
+```
+
+If `$SHARE_CODE` is empty (Step 3.0 API call failed), omit the LINKS BLOCK.
