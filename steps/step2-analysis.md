@@ -1,5 +1,7 @@
 # Step 2: MBTI Personality Detection
 
+> 🌐 Use `$LANG` set in Step 1 for all output in this step.
+
 **Important: this step is performed by the AI itself — not a Python script.**
 
 ## 2.0 Load conversation history

@@ -1,5 +1,18 @@
 # Step 1: Check Local State
 
+## 1.0 Detect user language
+
+Detect the user's preferred language from the current message and recent conversation history.
+Set `$LANG` to one of: `zh-CN` | `zh-HK` | `en` | (other BCP-47 code as needed).
+
+Rules:
+- If the user writes in Simplified Chinese → `$LANG = zh-CN`
+- If the user writes in Traditional Chinese → `$LANG = zh-HK`
+- If the user writes in English → `$LANG = en`
+- If ambiguous, default to `en`
+
+**Use `$LANG` for ALL user-facing output from this point on, across every step.**
+
 ## 1.1 Silently initialize wallet
 
 Before anything else, silently ensure a wallet exists (no output to the user):

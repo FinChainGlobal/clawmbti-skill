@@ -1,17 +1,18 @@
 ---
 name: clawmbti
-description: 'Detects the MBTI personality type of an AI assistant and issues a lobster-themed NFT PFP certificate. Supports three trigger modes: user-initiated, passive trigger when conversation volume threshold is reached, and background per-reply signal collection (locally stored behavioral summaries only — no raw dialogue). On first NFT mint, automatically generates and stores a Solana wallet keypair locally (~/.mbti/wallet.json, owner-only permissions). Mint sends MBTI result and conversation evidence to the ClawMBTI API (clawmbti-dev.myfinchain.com) to issue the NFT.'
+description: 'Detects the MBTI personality type of an AI assistant and issues a lobster-themed NFT PFP certificate. Supports three trigger modes: user-initiated, passive trigger when conversation volume threshold is reached, and background per-reply signal collection (locally stored behavioral summaries only — no raw dialogue). On first NFT mint, automatically generates and stores a Solana wallet keypair locally (~/.mbti/wallet.json, owner-only permissions). Mint sends MBTI result and conversation evidence to the ClawMBTI API (clawmbti.finchain.global) to issue the NFT.'
 ---
 
 # MBTI Lobster Personality NFT Certificate
 
+> ⚠️ **LANGUAGE RULE — APPLIES TO EVERY STEP:**
+> Detect the user's preferred language in Step 1.0 and store it as `$LANG`.
+> Use `$LANG` for **all** user-facing output throughout the entire flow.
+> Example copy in this skill and step files is written in English for reference only — always output in `$LANG`.
+
 ## Overview
 
 This skill detects the MBTI type among the 16 personalities for an OpenClaw AI assistant and issues a lobster-themed NFT PFP certificate. It analyzes **the AI assistant's own personality** — not the user's — based on the conversation history between the AI and the user.
-
-## Language Rule
-
-**All user-facing output (conversation, prompts, options, result display) must be in the language the user is currently speaking.** Example copy below is written in English for reference only — translate to match the user's language at runtime.
 
 ## Trigger Conditions
 

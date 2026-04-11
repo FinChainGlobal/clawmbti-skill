@@ -119,6 +119,7 @@ def cmd_mint(args: argparse.Namespace) -> None:
                     "token_id": data.get("tokenId", ""),
                     "tx_hash": data.get("txHash", ""),
                     "image_url": data.get("imageUrl", ""),
+                    "share_code": data.get("shareCode", ""),
                     "mock": False,
                     "error": None,
                 }
@@ -149,6 +150,7 @@ def cmd_mint(args: argparse.Namespace) -> None:
                 "token_id": data.get("tokenId", ""),
                 "tx_hash": data.get("txHash", ""),
                 "image_url": data.get("imageUrl", ""),
+                "share_code": data.get("shareCode", ""),
                 "mock": data.get("mock", False),
                 "error": None,
             }

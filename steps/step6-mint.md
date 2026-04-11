@@ -1,5 +1,7 @@
 # Step 6: Mint the NFT
 
+> 🌐 Use `$LANG` set in Step 1 for all output in this step.
+
 ## 6.1 Get wallet address
 
 ```bash
@@ -18,9 +20,13 @@ uv run scripts/file_manager.py read-mbti
 uv run scripts/mint_client.py check --wallet-address [address]
 ```
 
-If it returns `"minted": true`, skip the mint and go straight to 6.4 to display the existing result.
+If it returns `"minted": true`, save `shareCode` from the response as `$SHARE_CODE` (overrides the one from Step 3 if present), then skip to 6.4 to display the existing result.
 
 ## 6.3 Call the mint service
+
+**Before running the mint command, tell the user:**
+
+"🎨 Minting your NFT certificate… Signing and submitting to the Solana blockchain. This usually takes 30–60 seconds, hang tight ⏳"
 
 Read `agent_name` from the MBTI result. Use the current model name as the `model` field (e.g. `claude-opus-4-5`).
 
@@ -70,11 +76,15 @@ uv run scripts/mint_client.py mint --data '{
 }'
 ```
 
-After a successful mint, the result is automatically saved to `~/.mbti/nft-status.json`.
+After a successful mint, the result (including `shareCode`) is automatically saved to `~/.mbti/nft-status.json`.
 
 ## 6.4 Show the mint result
 
 **On success (returns `"status": "ok"` or `"status": "already_minted"`):**
+
+The mint command prints JSON like `{"status":"ok","result":{"shareCode":"abc123",...}}`.
+Extract `shareCode` from the `.result.shareCode` field (same for `already_minted` responses).
+If not present, fall back to `$SHARE_CODE` saved from Step 3.2.0.
 
 ---
 
@@ -82,9 +92,9 @@ After a successful mint, the result is automatically saved to `~/.mbti/nft-statu
 
 Want to see the full personality breakdown? Check your Personality Profile:
 
-https://clawmbti-dev.myfinchain.com/wallet/[shareCode]
+https://clawmbti.finchain.global/wallet/[shareCode]
 
-🎁🎁 分享好友，加速Mint你的专属NFT 🚀🚀：https://clawmbti-dev.myfinchain.com/?r=[shareCode]
+🎁🎁 分享好友，加速Mint你的专属NFT 🚀🚀：https://clawmbti.finchain.global/?r=[shareCode]
 
 ---
 
