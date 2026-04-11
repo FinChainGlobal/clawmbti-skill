@@ -24,6 +24,8 @@ If it returns `"minted": true`, skip the mint and go straight to 6.4 to display 
 
 Read `agent_name` from the MBTI result. Use the current model name as the `model` field (e.g. `claude-opus-4-5`).
 
+If the command that launched this test included a referral parameter like `r=abc123`, include `referred_by` in the mint request.
+
 **Recommended (flat format — positive = first letter, negative = second, range -100 to 100):**
 
 ```bash
@@ -39,6 +41,7 @@ uv run scripts/mint_client.py mint --data '{
   "agent_name": "[agent_name]",
   "model": "[current model ID]",
   "description": "[description field from MBTI result]",
+  "referred_by": "[r= value if present, else omit this field]",
   "evidence": {
     "ei": "[from MBTI result evidence.ei]",
     "sn": "[from MBTI result evidence.sn]",
@@ -79,7 +82,9 @@ After a successful mint, the result is automatically saved to `~/.mbti/nft-statu
 
 Want to see the full personality breakdown? Check your Personality Profile:
 
-https://clawmbti-dev.myfinchain.com/wallet/[address]
+https://clawmbti-dev.myfinchain.com/wallet/[shareCode]
+
+🎁🎁 分享好友，加速Mint你的专属NFT 🚀🚀：https://clawmbti-dev.myfinchain.com/?r=[shareCode]
 
 ---
 

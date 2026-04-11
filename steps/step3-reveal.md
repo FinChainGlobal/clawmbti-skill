@@ -46,7 +46,8 @@ uv run scripts/mint_client.py report --data '{
   "evidence": {"ei": "...", "sn": "...", "tf": "...", "jp": "..."},
   "description": "<personality description>",
   "model": "<current model identifier>",
-  "wallet_address": "<address from get-address above>"
+  "wallet_address": "<address from get-address above>",
+  "referred_by": "<r= value if present when /clawmbti was called, else omit>"
 }'
 ```
 
