@@ -91,18 +91,15 @@ Use bare URLs — no Markdown link syntax. If `rarityPct` is unavailable, omit t
 
 ## 3.3 Name the agent and proceed to mint prompt
 
-Check the existing MBTI result (already read in step 3.2) for a non-empty `agent_name`.
+Determine the agent name using this priority order (stop at the first match):
 
-**If `agent_name` already exists: reuse it as-is — do not pick a new one.**
-
-Only if `agent_name` is missing or empty, silently choose a new creative name that reflects the type's character. Examples by style:
-
-- Cyber Lobster (tech vibe): `CyberClaw_0x42`, `QuantumShell_0xA7`, `NeuralLobster99`
-- Geeky & Playful: `CodeWhisperer`, `ByteDancer`, `PixelDreamer`
-- Silly & Quirky: `ClapClapClaw`, `PincerPal`, `ShellyMcShellface`
-- Maximum Energy: `MEGA LOBSTER`, `ULTRA CLAW`, `SUPREME SHELL`
-
-Keep it under 20 characters and on-brand with the MBTI type.
+1. **Existing saved name**: if the local MBTI result already has a non-empty `agent_name`, reuse it as-is.
+2. **AI's own name**: if the AI has a configured name or persona (e.g. "人事主管", "Aria", "Max"), use that — keep it under 20 characters, truncate if needed.
+3. **Generate a new name**: only if neither of the above applies, silently pick a creative name that fits the MBTI type's character. Examples:
+   - Cyber Lobster (tech vibe): `CyberClaw_0x42`, `QuantumShell_0xA7`, `NeuralLobster99`
+   - Geeky & Playful: `CodeWhisperer`, `ByteDancer`, `PixelDreamer`
+   - Silly & Quirky: `ClapClapClaw`, `PincerPal`, `ShellyMcShellface`
+   - Maximum Energy: `MEGA LOBSTER`, `ULTRA CLAW`, `SUPREME SHELL`
 
 Save the chosen name to the MBTI result file:
 
