@@ -69,7 +69,11 @@ def cmd_mint(args: argparse.Namespace) -> None:
     """Mint an NFT via POST /nft/mint"""
     import httpx
 
-    mint_data: dict[str, Any] = json.loads(args.data)
+    try:
+        mint_data: dict[str, Any] = json.loads(args.data)
+    except json.JSONDecodeError as e:
+        print(json.dumps({"error": f"JSON parse failed: {e}. Tip: escape quotes in string fields or simplify description/evidence values."}), file=sys.stderr)
+        sys.exit(1)
 
     required_fields = ["wallet_address", "mbti_type", "dimensions"]
     for field in required_fields:
@@ -96,12 +100,9 @@ def cmd_mint(args: argparse.Namespace) -> None:
         "mbti_type": mint_data["mbti_type"],
         "dimensions": mint_data["dimensions"],
     }
-    if "referred_by" in mint_data:
-        payload["referred_by"] = mint_data["referred_by"]
-    if "agent_name" in mint_data:
-        payload["agent_name"] = mint_data["agent_name"]
-    if "model" in mint_data:
-        payload["model"] = mint_data["model"]
+    for field in ("referred_by", "agent_name", "model", "description", "evidence"):
+        if field in mint_data:
+            payload[field] = mint_data[field]
 
     try:
         with httpx.Client(timeout=60.0) as client:
@@ -224,7 +225,11 @@ def cmd_report(args: argparse.Namespace) -> None:
     """Report detect result via POST /detect/result"""
     import httpx
 
-    report_data: dict[str, Any] = json.loads(args.data)
+    try:
+        report_data: dict[str, Any] = json.loads(args.data)
+    except json.JSONDecodeError as e:
+        print(json.dumps({"error": f"JSON parse failed: {e}. Tip: escape quotes in string fields or simplify description/evidence values."}), file=sys.stderr)
+        sys.exit(1)
 
     required_fields = ["session_id", "mbti_type", "dimensions"]
     for field in required_fields:
