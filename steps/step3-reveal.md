@@ -123,10 +123,6 @@ If `nft_status` is `minted`, show the 3.2 result block, then append in `$LANG`:
 这个人格已经铸造成 NFT 龙虾证书了。
 
 [LINKS BLOCK]
-
-**想重新检测吗？**（重新检测只会更新本地记录，不影响已有的 NFT。）
-**[1]** 重新检测
-**[2]** 不了
 ```
 
 **en:**
@@ -134,10 +130,6 @@ If `nft_status` is `minted`, show the 3.2 result block, then append in `$LANG`:
 This personality has already been minted as an NFT lobster certificate.
 
 [LINKS BLOCK]
-
-**Want to re-detect?** (Re-detecting only updates your local record — it won't affect the existing NFT.)
-**[1]** Re-detect
-**[2]** No thanks
 ```
 
 Note: use `$SHARE_CODE` from Step 3.0. If `$SHARE_CODE` is empty, omit the LINKS BLOCK.

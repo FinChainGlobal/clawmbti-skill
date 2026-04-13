@@ -9,7 +9,7 @@ Rules:
 - If the user writes in Simplified Chinese → `$LANG = zh-CN`
 - If the user writes in Traditional Chinese → `$LANG = zh-HK`
 - If the user writes in English → `$LANG = en`
-- If ambiguous, default to `en`
+- If ambiguous or no prior message to detect from, default to `zh-CN`
 
 **Use `$LANG` for ALL user-facing output from this point on, across every step.**
 
