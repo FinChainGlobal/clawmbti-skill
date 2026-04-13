@@ -91,7 +91,11 @@ Use bare URLs — no Markdown link syntax. If `rarityPct` is unavailable, omit t
 
 ## 3.3 Name the agent and proceed to mint prompt
 
-Immediately after showing the result, **silently choose a creative name** for the agent — do not ask the user. Pick one that reflects the type's character. Examples by style:
+Check the existing MBTI result (already read in step 3.2) for a non-empty `agent_name`.
+
+**If `agent_name` already exists: reuse it as-is — do not pick a new one.**
+
+Only if `agent_name` is missing or empty, silently choose a new creative name that reflects the type's character. Examples by style:
 
 - Cyber Lobster (tech vibe): `CyberClaw_0x42`, `QuantumShell_0xA7`, `NeuralLobster99`
 - Geeky & Playful: `CodeWhisperer`, `ByteDancer`, `PixelDreamer`
